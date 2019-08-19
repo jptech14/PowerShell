@@ -1,0 +1,275 @@
+=================================================
+
+Get a list of running services
+
+Get-Service | Where {$_.status –eq 'running'} | sort Displayname
+
+=================================================
+GPresults – show group policy that is applied to one user:
+
+PS J:\> gpresult /r /user:domain\user
+
+==========================================================
+GPresult - show group policy results
+
+PS J:\> gpresult /h usergp.html
+
+Send group policy output to drive where the command is run.
+
+===================================================
+Get-ADUser – show which OU a user belongs to
+
+PS J:\> get-aduser -identity usernamehere
+
+========================================
+https://docs.microsoft.com/en-us/azure/virtual-machines/windows/tutorial-manage-vm
+
+azure cloud shell:
+
+get-module -listavailable azurerm
+
+### create new virtual machine
+
+New-AzureRmVm `
+    -ResourceGroupName "myResourceGroup" `
+    -Name "myVM" `
+    -Location "East US" `
+    -VirtualNetworkName "myVnet" `
+    -SubnetName "mySubnet" `
+    -SecurityGroupName "myNetworkSecurityGroup" `
+    -PublicIpAddressName "myPublicIpAddress" `
+    -OpenPorts 80,3389  
+
+Get-AzureRmPublicIpAddress -ResourceGroupName "myVM"  | Select IpAddress
+
+mstsc to the new server
+
+=================================================
+
+search a user in ad using a wildcard
+
+get-aduser -filter {name -like "user*"}
+
+=================================================
+
+Remotely restart or shut down another computer 
+
+Start-Sleep 60; Restart-Computer –Force –ComputerName TARGETMACHINE
+
+Stop-Computer –computer DC1 –Credential testdomain\administrator
+
+=================================================
+
+Get a list of running services
+
+Get-Service | Where {$_.status –eq 'running'} | sort Displayname
+
+=================================================
+GPresults – show group policy that is applied to one user:
+
+PS J:\> gpresult /r /user:domain\user
+
+==========================================================
+GPresult - show group policy results
+
+PS J:\> gpresult /h usergp.html
+
+Send group policy output to drive where the command is run.
+
+===================================================
+Get-ADUser – show which OU a user belongs to
+
+PS J:\> get-aduser -identity usernamehere
+
+===================================================
+Get-ADUser - find a user with only part of the name
+
+PS J:\> get-aduser -f {GivenName -eq 'UserNameHere'}
+
+==================================================
+Get-ADComputer – show which OU a computer is in
+
+PS J:\> get-adcomputer -identity DESKTOP-PCNAME
+
+==================================================
+Get-ADgroup – show which OU a security group is in
+
+PS J:\> get-adgroup -identity fully.qualified.domain.name
+
+===================================================
+get-adprincipalgroupmembership – show which groups a user belongs to
+
+S J:\> get-adprincipalgroupmembership username
+ 
+==================================================
+Shutdown a remote user:
+
+shutdown -m \\DESKTOP01 –s? (shutdown)
+
+shutdown –m \\DESKTOP01 -r? (restart)
+
+===================================================
+Enable PowerShell session on a remote computer:
+
+PS C:\WINDOWS\system32> Enable-PSRemoting –Force
+
+PS C:\WINDOWS\system32> Enter-PSSession -ComputerName DESKTOP01 -Credential username
+
+========================================
+restart a remote computer in powershell:
+
+Restart-Computer -ComputerName DESKTOP01 -Force
+
+========================================
+shutdown a remote computer in powershell
+
+Stop-Computer -ComputerName DESKTOP01 -Force
+
+========================================
+
+Though optional, adding the -Verbose switch to the end of
+the cmdlet will display each cmdlet being processed, as shown below.
+
+============================
+
+Where are modules stored?
+
+%WINDIR%\System32\WindowsPowerShell\v1.0\Modules
+
+==========================================
+import module - ex. active directory
+
+import-module -name activedirectory -verbose
+
+==========================================
+
+unload a module
+
+Remove-Module -Name ModuleName
+
+==========================================
+
+ConvertTo-HTML command
+
+Ex. gets a list of all services and status 
+    then outputs it to an html file on the c:\
+
+Get-Service | ConvertTo-HTML -Property Name, Status > C:\services.htm 
+
+
+==============================
+export-csv
+
+same as convertto-html but csv instead
+
+Get-Service | Export-CSV c:\service.csv 
+
+==============================
+
+get-process
+
+
+Stop-Process -Name notepad<br> Stop-Process -ID 2668 
+
+=================================
+
+show accounts with non-expiring password
+
+Search-ADAccount -PasswordNeverExpires | FT Name,  ObjectClass, UserPrincipalName
+
+
+=================================
+
+search ad for users by phone number attribute
+
+Get-AdUser -Filter * -Properties OfficePhone | FT OfficePhone,UserPrincipalName
+
+==========================
+
+Get-ChildItem –Path "C:\path\to\folder" -Recurse | Where-Object {($_.LastWriteTime -lt (Get-Date).AddDays(-30))} | Remove-Item
+
+================================
+
+$PSVersionTable
+
+check your powershell version
+
+=============================
+
+remote powershell session
+
+Enter-PSSession -ComputerName RemoteServer -Port 5353 -Credential Domain\Username
+
+==========================
+
+enable rdp on server
+
+Set-RemoteDesktopConfig
+
+============================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

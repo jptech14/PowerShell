@@ -1,0 +1,1 @@
+﻿robocopy “C:\Backup” “Z:\Backup” /MIR /Z /LOG:mirror.log

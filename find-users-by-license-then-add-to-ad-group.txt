@@ -1,0 +1,20 @@
+$msolUsers = Get-MsolUser -EnabledFilter EnabledOnly | Where-Object {($_.licenses).AccountSkuId -eq 'lazydev:enterprisepack'} 
+
+ForEach ($user in $msolUsers) {
+  try {
+    $ADUser = Get-ADUser -filter {UserPrincipalName -eq $user.UserPrincipalName} -ErrorAction stop
+
+    Add-ADGroupMember -Identity O365_E3 -Members $ADUser -ErrorAction stop
+
+    [PSCustomObject]@{
+      UserPrincipalName = $user.UserPrincipalName
+      Migrate           = $true
+    }
+  }
+  catch {
+      [PSCustomObject]@{
+      UserPrincipalName = $user.UserPrincipalName
+      Migrate           = $false
+    }
+  }
+}

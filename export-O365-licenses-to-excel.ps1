@@ -1,0 +1,1 @@
+﻿Get-MsolUser -All |Where {$_.IsLicensed -eq $true } |Select DisplayName,UsageLocation,@{n="Licenses Type";e={$_.Licenses.AccountSKUid}},SignInName,UserPrincipalName,@{n="ProxyAddresses";e={$_.ProxyAddresses}}| Export-csv -Path C:ExportlicenseUsage.csv -notype

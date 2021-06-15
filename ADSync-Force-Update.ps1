@@ -1,0 +1,2 @@
+﻿Start-ADSyncSyncCycle -PolicyType Delta
+

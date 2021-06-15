@@ -1,0 +1,6 @@
+## find users with Office 365 license and remove the office 365 user license
+
+## edit the 'yourdomain' and 'domain:' fields and 
+
+Get-MsolUser -all | Where {$_.Licenses.AccountSkuId -contains "yourdomain:STANDARDPACK"} | Set-MsolUserLicense -RemoveLicenses "domain:STANDARDPACK"
+

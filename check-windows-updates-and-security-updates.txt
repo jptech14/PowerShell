@@ -1,0 +1,11 @@
+# check latest windows updates and check on remote server
+
+check latest windows update:
+Get-HotFix |Select-Object Description, InstalledOn
+
+check last windows updates and security updates and list with HotFixID
+
+Get-WmiObject -Class Win32_QuickFixEngineering | Select-Object -Property HotFixID, InstalledOn, Description
+
+check another server for latest windows update:
+Get-HotFix -ComputerName "yourservername" | Select-Object Description, InstalledOn
